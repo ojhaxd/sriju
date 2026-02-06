@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sriju ❤️</title>
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bellota+Text:wght@400;700&family=Pacifico&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Bellota Text', sans-serif;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background: #ffe4e1; /* Soft Rose */
+            background-image: radial-gradient(#ffb6c1 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 4px solid #fff;
+            max-width: 90%;
+            width: 450px;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            color: #d63384;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px #ffdae9;
+        }
+
+        .gif-container {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .gif-container img {
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #yes {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #yes:hover {
+            transform: scale(1.1);
+            background-color: #ff758f;
+        }
+
+        #no {
+            background-color: #a0a0a0;
+            color: white;
+            position: absolute;
+            transition: 0.3s ease;
+            white-space: nowrap;
+        }
+
+        /* Success Screen */
+        #confirmation {
+            display: none;
+        }
+
+        #fix {
+            margin-top: 20px;
+            background: #4caf50;
+            color: white;
+            width: 100%;
+            font-size: 1.2rem;
+        }
+
+        .crush-name {
+            color: #ff0054;
+            display: block;
+            font-size: 3rem;
+        }
+
+        @media (max-width: 500px) {
+            h1 { font-size: 1.8rem; }
+            .crush-name { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Question -->
+    <div class="card" id="container">
+        <h1>Hi <span class="crush-name">Sriju!</span></h1>
+        <h1>Will you go on a date with me?</h1>
+        <div class="gif-container">
+            <img id="main-gif" src="https://media1.tenor.com/m/UAFrdZCt29YAAAAC/milk-and-mocha-waiting-for-reply.gif" alt="Waiting">
+        </div>
+        <div class="btn-group" id="btn-group">
+            <button id="yes">Yes!!!</button>
+            <button id="no">No</button>
+        </div>
+    </div>
+
+    <!-- Success Section -->
+    <div class="card" id="confirmation">
+        <h1>Yayyyyyyyy! ❤️</h1>
+        <h1>See you soon, Sriju!</h1>
+        <div class="gif-container">
+            <img src="https://media1.tenor.com/m/2VprHA868S8AAAAC/yummy-desserts-desserts-milk-mocha.gif" alt="Happy">
+        </div>
+        <button id="fix">Let's fix a date on WhatsApp 💌</button>
+    </div>
+
+    <script>
+        const yesBtn = document.querySelector("#yes");
+        const noBtn = document.querySelector("#no");
+        const container = document.querySelector("#container");
+        const confirmation = document.querySelector("#confirmation");
+        const btnGroup = document.querySelector("#btn-group");
+
+        // Function for Yes
+        yesBtn.addEventListener('click', () => {
+            container.style.display = 'none';
+            confirmation.style.display = 'block';
+            
+            // Confetti Blast!
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) {
+              return Math.random() * (max - min) + min;
+            }
+
+            var interval = setInterval(function() {
+              var timeLeft = animationEnd - Date.now();
+              if (timeLeft <= 0) return clearInterval(interval);
+              var particleCount = 50 * (timeLeft / duration);
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+        });
+
+        // Function for No (Dodge on Hover)
+        const moveNoButton = () => {
+            // Calculate random positions within the visible screen area
+            // but keeping it somewhat near the card area
+            const padding = 20;
+            const bWidth = noBtn.offsetWidth;
+            const bHeight = noBtn.offsetHeight;
+
+            // Get boundaries (viewport)
+            const maxX = window.innerWidth - bWidth - padding;
+            const maxY = window.innerHeight - bHeight - padding;
+
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${newX}px`;
+            noBtn.style.top = `${newY}px`;
+        };
+
+        // Trigger on Hover (Desktop)
+        noBtn.addEventListener('mouseover', moveNoButton);
+        
+        // Trigger on Click just in case (Mobile)
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // WhatsApp redirect
+        document.getElementById("fix").addEventListener("click", function(){
+            const message = encodeURIComponent("i love you the most, Avishek❤️");
+            window.location.href = `https://wa.me/+9779814969552?text=${message}`;
+        });
+    </script>
+</body>
+</html>
