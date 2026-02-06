@@ -4,216 +4,250 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Sriju ❤️</title>
-    <!-- Confetti Library -->
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bellota+Text:wght@400;700&family=Pacifico&display=swap');
+        :root {
+            --primary: #ff4d6d;
+            --primary-hover: #ff758f;
+            --bg-gradient: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            --glass: rgba(255, 255, 255, 0.8);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Bellota Text', sans-serif;
         }
 
         body {
             width: 100%;
             height: 100vh;
-            background: #ffe4e1; /* Soft Rose */
-            background-image: radial-gradient(#ffb6c1 1px, transparent 1px);
-            background-size: 20px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: var(--bg-gradient);
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
+            padding: 20px;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
+        /* Floating Animation for the Card */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .container {
+            background: var(--glass);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
+            padding: 40px;
             text-align: center;
-            border: 4px solid #fff;
-            max-width: 90%;
-            width: 450px;
-            z-index: 1;
+            max-width: 450px;
+            width: 100%;
+            animation: float 4s ease-in-out infinite;
+            z-index: 2;
+            transition: all 0.5s ease;
+        }
+
+        .crush-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: block;
         }
 
         h1 {
-            font-family: 'Pacifico', cursive;
-            color: #d63384;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px #ffdae9;
+            font-size: 1.5rem;
+            color: #444;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.4;
         }
 
-        .gif-container {
+        .gif-wrapper {
             width: 100%;
-            height: 250px;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .gif-container img {
-            border-radius: 20px;
-            object-fit: cover;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .gif-wrapper img {
+            width: 100%;
+            display: block;
         }
 
         .btn-group {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 20px;
-            height: 60px;
             position: relative;
+            min-height: 60px;
         }
 
         button {
-            padding: 12px 30px;
-            font-size: 1.5rem;
-            font-weight: bold;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         #yes {
-            background-color: #ff4d6d;
+            background: var(--primary);
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+            z-index: 3;
         }
 
         #yes:hover {
             transform: scale(1.1);
-            background-color: #ff758f;
+            background: var(--primary-hover);
+            box-shadow: 0 15px 25px rgba(255, 77, 109, 0.4);
         }
 
         #no {
-            background-color: #a0a0a0;
-            color: white;
-            position: absolute;
-            transition: 0.3s ease;
-            white-space: nowrap;
+            background: #fff;
+            color: #888;
+            border: 1px solid #ddd;
+            z-index: 3;
         }
 
-        /* Success Screen */
-        #confirmation {
+        /* Success State */
+        .hidden {
             display: none;
+            opacity: 0;
+            transform: scale(0.9);
         }
 
-        #fix {
-            margin-top: 20px;
-            background: #4caf50;
+        #fix-btn {
+            background: #25D366; /* WhatsApp Green */
             color: white;
             width: 100%;
-            font-size: 1.2rem;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .crush-name {
-            color: #ff0054;
-            display: block;
-            font-size: 3rem;
+        /* Decorative Background Elements */
+        .bg-circle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            z-index: 1;
         }
 
-        @media (max-width: 500px) {
-            h1 { font-size: 1.8rem; }
-            .crush-name { font-size: 2.2rem; }
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .container { padding: 30px 20px; }
+            .crush-name { font-size: 2.8rem; }
+            h1 { font-size: 1.2rem; }
+            button { padding: 12px 25px; font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Main Question -->
-    <div class="card" id="container">
-        <h1>Hi <span class="crush-name">Sriju!</span></h1>
-        <h1>Will you go on a date with me?</h1>
-        <div class="gif-container">
-            <img id="main-gif" src="https://media1.tenor.com/m/UAFrdZCt29YAAAAC/milk-and-mocha-waiting-for-reply.gif" alt="Waiting">
+    <!-- Animated background shapes -->
+    <div class="bg-circle" style="width: 300px; height: 300px; top: -100px; left: -100px;"></div>
+    <div class="bg-circle" style="width: 200px; height: 200px; bottom: -50px; right: -50px;"></div>
+
+    <!-- Main Card -->
+    <div class="container" id="main-card">
+        <span class="crush-name">Sriju</span>
+        <h1>Will you do me the honor of going on a date with me? ✨</h1>
+        
+        <div class="gif-wrapper">
+            <img src="https://media1.tenor.com/m/UAFrdZCt29YAAAAC/milk-and-mocha-waiting-for-reply.gif" alt="Cute Bear">
         </div>
-        <div class="btn-group" id="btn-group">
-            <button id="yes">Yes!!!</button>
+
+        <div class="btn-group">
+            <button id="yes">Yes, I'd love to!</button>
             <button id="no">No</button>
         </div>
     </div>
 
-    <!-- Success Section -->
-    <div class="card" id="confirmation">
-        <h1>Yayyyyyyyy! ❤️</h1>
-        <h1>See you soon, Sriju!</h1>
-        <div class="gif-container">
-            <img src="https://media1.tenor.com/m/2VprHA868S8AAAAC/yummy-desserts-desserts-milk-mocha.gif" alt="Happy">
+    <!-- Success Card -->
+    <div class="container hidden" id="success-card">
+        <span class="crush-name">Yayyy! ❤️</span>
+        <h1>I'm the luckiest person! Can't wait, Sriju.</h1>
+        
+        <div class="gif-wrapper">
+            <img src="https://media1.tenor.com/m/2VprHA868S8AAAAC/yummy-desserts-desserts-milk-mocha.gif" alt="Happy Dance">
         </div>
-        <button id="fix">Don't click here(surprise)💌</button>
+
+        <button id="fix-btn">Let's pick a time! 💌</button>
     </div>
 
     <script>
-        const yesBtn = document.querySelector("#yes");
-        const noBtn = document.querySelector("#no");
-        const container = document.querySelector("#container");
-        const confirmation = document.querySelector("#confirmation");
-        const btnGroup = document.querySelector("#btn-group");
+        const yesBtn = document.querySelector('#yes');
+        const noBtn = document.querySelector('#no');
+        const mainCard = document.querySelector('#main-card');
+        const successCard = document.querySelector('#success-card');
 
-        // Function for Yes
-        yesBtn.addEventListener('click', () => {
-            container.style.display = 'none';
-            confirmation.style.display = 'block';
-            
-            // Confetti Blast!
-            var duration = 5 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-            function randomInRange(min, max) {
-              return Math.random() * (max - min) + min;
-            }
-
-            var interval = setInterval(function() {
-              var timeLeft = animationEnd - Date.now();
-              if (timeLeft <= 0) return clearInterval(interval);
-              var particleCount = 50 * (timeLeft / duration);
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
-        });
-
-        // Function for No (Dodge on Hover)
+        // Logic to move the "No" button on HOVER
         const moveNoButton = () => {
-            // Calculate random positions within the visible screen area
-            // but keeping it somewhat near the card area
-            const padding = 20;
-            const bWidth = noBtn.offsetWidth;
-            const bHeight = noBtn.offsetHeight;
-
-            // Get boundaries (viewport)
-            const maxX = window.innerWidth - bWidth - padding;
-            const maxY = window.innerHeight - bHeight - padding;
-
-            const newX = Math.random() * maxX;
-            const newY = Math.random() * maxY;
+            // Get viewport dimensions
+            const vWidth = window.innerWidth;
+            const vHeight = window.innerHeight;
+            
+            // Calculate random coordinates
+            // We keep it within 70% of the screen so it doesn't disappear
+            const newX = Math.random() * (vWidth - noBtn.offsetWidth);
+            const newY = Math.random() * (vHeight - noBtn.offsetHeight);
 
             noBtn.style.position = 'fixed';
             noBtn.style.left = `${newX}px`;
             noBtn.style.top = `${newY}px`;
+            noBtn.style.transition = 'all 0.2s ease';
         };
 
-        // Trigger on Hover (Desktop)
         noBtn.addEventListener('mouseover', moveNoButton);
-        
-        // Trigger on Click just in case (Mobile)
-        noBtn.addEventListener('click', (e) => {
+        // Also move on touch for mobile users
+        noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
             moveNoButton();
         });
 
+        // Yes button click
+        yesBtn.addEventListener('click', () => {
+            mainCard.classList.add('hidden');
+            setTimeout(() => {
+                mainCard.style.display = 'none';
+                successCard.style.display = 'block';
+                setTimeout(() => {
+                    successCard.style.opacity = '1';
+                    successCard.style.transform = 'scale(1)';
+                }, 50);
+            }, 500);
+
+            // Confetti Explosion
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ff758f', '#ffccd5']
+            });
+        });
+
         // WhatsApp redirect
-        document.getElementById("fix").addEventListener("click", function(){
-            const message = encodeURIComponent("i love you the most, Avishek❤️");
-            window.location.href = `https://wa.me/+9779814969552?text=${message}`;
+        document.getElementById("fix-btn").addEventListener("click", function(){
+            const text = encodeURIComponent("Hey! I'd love to go on a date with you! Sriju here. ❤️");
+            window.location.href = `https://wa.me/+918802130983?text=${text}`;
         });
     </script>
 </body>
